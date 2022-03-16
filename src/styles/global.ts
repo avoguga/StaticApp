@@ -55,4 +55,12 @@ export const globalStyles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 10,
   },
+  picker: {
+    width: 360,
+    color: "#fff",
+
+  },
+  pickerItem: {
+    fontSize: 18,
+  }
 });
