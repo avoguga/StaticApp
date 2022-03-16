@@ -1,13 +1,25 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
+import { View, ScrollView } from "react-native";
 import { globalStyles } from "../../styles/global";
-
+import { Header, SubHeader } from "../../components/Header";
+import SympleSupportedBeams from "../../components/SymplySupportedBeams";
 const Home = ({}) => {
-  const [selectedValue, setSelectedValue] = useState();
+  const [beamsType, setBeamsType] = useState();
+
+  const ScreenDisplay = () => {
+    if(beamsType === "Symple Supported Beams"){
+
+    }
+    return <SympleSupportedBeams />;
+  };
 
   return (
     <View style={globalStyles.container}>
-      <View style={globalStyles.content}></View>
+      <Header text="Beam Design Formulas" />
+      <SubHeader text="Simply Supported Beams" />
+      <ScrollView style={globalStyles.content}>
+        <View>{ScreenDisplay()}</View>
+      </ScrollView>
     </View>
   );
 };
