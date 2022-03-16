@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View } from "react-native";
 import { globalStyles } from "../../styles/global";
 import { Button } from "../../components/Button";
 const SympleSupportedBeams = ({}) => {

@@ -34,7 +34,8 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: "#0082C6",
   },
   content: {
-    flex: 2,
+    flex: 1,
+    flexDirection: "row",
     padding: 15,
   },
   contentTitle: {
@@ -44,8 +45,10 @@ export const globalStyles = StyleSheet.create({
     marginRight: 100,
   },
   calculatorContent: {
-    marginLeft: 10,
-    marginRight: 10,
+    flex: 2,
+    padding: 15,
+    backgroundColor: "white",
+    width: 400,
   },
   buttonList: {
     flex: 3,
@@ -58,9 +61,16 @@ export const globalStyles = StyleSheet.create({
   picker: {
     width: 360,
     color: "#fff",
-
   },
   pickerItem: {
     fontSize: 18,
+  },
+  image: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  input: {
+    borderWidth: 2,
+    borderColor: "black",
   }
 });
