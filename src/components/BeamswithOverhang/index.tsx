@@ -1,7 +1,8 @@
 import React from "react";
 import { View } from "react-native";
 import { globalStyles } from "../../styles/global";
-import { Button } from "../Button";
+import { Button } from "../BeamButton";
+import CalculatorInput from "../CalculatorInput";
 const BeamsWithOverhang = ({}) => {
   return (
     <View style={globalStyles.buttonList}>
@@ -17,7 +18,14 @@ const BeamsWithOverhang = ({}) => {
 
 export const SimpleBeamWithPlsEquallySpaced = ({}) => {
   return(
-    <View></View>
+    <View>
+      <CalculatorInput text="Comprimento da Viga, L" />
+        <CalculatorInput text="Carga da Viga, W" />
+        <CalculatorInput text="Ponto de interesse, x" />
+        <CalculatorInput text="Young Modulus, E" />
+        <CalculatorInput text="Momento de Inercia, I" />
+
+    </View>
   );
 }
 

@@ -1,15 +1,22 @@
-import React from 'react';
-import {View, Text, StyleSheet, TextInput} from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 
 interface IProps {
-    text?: string,
-    value?: string,
-    setValue?: any,
-    unit?: string,
-    valorTexto?: string,
+  text?: string;
+  value?: any;
+  setValue?: any;
+  unit?: string;
+  valorTexto?: any;
 }
 
-const CalculatorInput: React.FC<IProps>  = ({text, value, setValue, unit, valorTexto}) => {
+const CalculatorInput: React.FC<IProps> = ({
+  text,
+  value,
+  setValue,
+  unit,
+  valorTexto,
+}) => {
+  
   return (
     <View>
       <View style={styles.container}>
@@ -18,10 +25,29 @@ const CalculatorInput: React.FC<IProps>  = ({text, value, setValue, unit, valorT
           <TextInput
             style={styles.display}
             value={value}
-            onChangeText={valorTexto => {
+            onChangeText={(valorTexto) => {
               setValue(valorTexto);
             }}
-            keyboardType="numeric"></TextInput>
+            keyboardType="numeric"
+          />
+          <Text style={styles.unit}>{unit}</Text>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export const CalculatorInputResult: React.FC<IProps> = ({
+  text,
+  value,
+  unit,
+}) => {
+  return (
+    <View>
+      <View style={styles.container}>
+        <Text style={styles.text}>{text}</Text>
+        <View style={styles.containerDisplay}>
+          <Text style={styles.resultDisplay}>{value}</Text>
           <Text style={styles.unit}>{unit}</Text>
         </View>
       </View>
@@ -31,34 +57,46 @@ const CalculatorInput: React.FC<IProps>  = ({text, value, setValue, unit, valorT
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     width: 400,
   },
   containerDisplay: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   display: {
     borderWidth: 3,
     borderRadius: 10,
-    borderColor: '#fff',
+    borderColor: "#fff",
     width: 110,
     height: 40,
     marginTop: 5,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
   },
-  text: {fontSize: 18, fontWeight: 'bold', color: '#fff'},
-  unit: {
-    width: 40,
+  resultDisplay: {
+    borderWidth: 3,
+    borderRadius: 10,
+    borderColor: "#fff",
+    width: 110,
+    height: 40,
+    marginTop: 5,
+    textAlign: "center",
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  text: { fontSize: 18, fontWeight: "bold", color: "#fff" },
+  unit: {
+    width: 50,
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#fff",
     marginTop: 20,
-    marginLeft: 5,
+    margin: 10,
   },
 });
 

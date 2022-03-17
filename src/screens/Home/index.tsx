@@ -2,18 +2,18 @@ import React, { useState, useRef } from "react";
 import {
   View,
   ScrollView,
-  Text,
-  TextInput,
-  KeyboardAvoidingView,
-  Image,
-  TouchableOpacity,
+  useWindowDimensions,
 } from "react-native";
 import { globalStyles } from "../../styles/global";
-import { Header, SubHeader } from "../../components/Header";
-import SympleSupportedBeams from "../../components/SymplySupportedBeams";
+import { Header } from "../../components/Header";
+import SympleSupportedBeams, {
+  SimpleBeamWithUDL,
+} from "../../components/SymplySupportedBeams";
 import CantileverBeams from "../../components/CantileverBeams";
 import { Picker } from "@react-native-picker/picker";
-import BeamsWithOverhang from "../../components/BeamswithOverhang";
+import BeamsWithOverhang, {
+  SimpleBeamWithPlsEquallySpaced,
+} from "../../components/BeamswithOverhang";
 import CalculatorInput from "../../components/CalculatorInput";
 
 const Home = ({}) => {
@@ -34,49 +34,50 @@ const Home = ({}) => {
       return <BeamsWithOverhang />;
     }
   };
-  console.log(typeof selectedBeamsType);
+
+  const Calculate = () => {
+    if (selectedBeamsType === "Vigas Biapoiadas") {
+      return <SympleSupportedBeams />;
+    } else if (selectedBeamsType === "Vigas Engasgadas em Balanço") {
+      return <CantileverBeams />;
+    } else if (selectedBeamsType === "Vigas Biapoiadas com balanço") {
+      return <BeamsWithOverhang />;
+    }
+  };
+
+  const windowHeight = useWindowDimensions().height;
 
   return (
-    <View style={globalStyles.container}>
-      <Header text="Beam Design Formulas" />
-      <View style={globalStyles.calculatorContent}>
-        <CalculatorInput text="Comprimento da Viga, L" />
-        <CalculatorInput text="Carga da Viga, W" />
-        <CalculatorInput text="Ponto de interesse, x" />
-        <CalculatorInput text="Young Modulus, E" />
-        <CalculatorInput text="Momento de Inercia, I" />
-
-        <TouchableOpacity
-          onPress={() => console.log("aaa")}
-          accessibilityLabel="Learn more about this purple button"
+    <View style={[{ minHeight: Math.round(windowHeight) }]}>
+      <View style={globalStyles.container}>
+        <Header text="Beam Design Formulas" />
+        <View style={globalStyles.calculatorContent}>
+          <SimpleBeamWithUDL />
+        </View>
+        
+        <Picker
+          style={globalStyles.picker}
+          selectedValue={selectedBeamsType}
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedBeamsType(itemValue)
+          }
         >
-          <View style={globalStyles.calculatorButton}>
-            <Text style={globalStyles.calculatorButtonText}>Calcular</Text>
-          </View>
-        </TouchableOpacity>
+          {beamsType.map((beams) => {
+            return (
+              <Picker.Item
+                style={globalStyles.pickerItem}
+                label={beams}
+                value={beams}
+              />
+            );
+          })}
+        </Picker>
+        <View style={globalStyles.content}>
+          <ScrollView horizontal>
+            <View>{ScreenDisplay()}</View>
+          </ScrollView>
+        </View>
       </View>
-      <Picker
-        style={globalStyles.picker}
-        selectedValue={selectedBeamsType}
-        onValueChange={(itemValue, itemIndex) =>
-          setSelectedBeamsType(itemValue)
-        }
-      >
-        {beamsType.map((beams) => {
-          return (
-            <Picker.Item
-              style={globalStyles.pickerItem}
-              label={beams}
-              value={beams}
-            />
-          );
-        })}
-      </Picker>
-      <KeyboardAvoidingView style={globalStyles.content} behavior="height">
-        <ScrollView horizontal>
-          <View>{ScreenDisplay()}</View>
-        </ScrollView>
-      </KeyboardAvoidingView>
     </View>
   );
 };

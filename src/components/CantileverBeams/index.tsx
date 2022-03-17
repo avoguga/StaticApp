@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { globalStyles } from "../../styles/global";
-import { Button } from "../Button";
+import { Button } from "../BeamButton";
 const CantileverBeams = ({}) => {
   return (
     <View style={globalStyles.buttonList}>

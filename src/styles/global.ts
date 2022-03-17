@@ -33,7 +33,6 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: "#0082C6",
   },
   content: {
-    flex: 1,
     flexDirection: "row",
     padding: 15,
   },
@@ -44,10 +43,11 @@ export const globalStyles = StyleSheet.create({
     marginRight: 100,
   },
   calculatorContent: {
+    flex: 2,
+    marginTop: 30,
     padding: 15,
     backgroundColor: "#0082C6",
-    borderWidth: 5,
-    borderRadius: 10,
+    borderBottomWidth: 5,
     borderColor: "#fff",
     width: 400,
     height: 500
