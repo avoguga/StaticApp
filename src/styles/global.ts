@@ -2,7 +2,6 @@ import { StyleSheet, Dimensions } from "react-native";
 
 export const globalStyles = StyleSheet.create({
   header: {
-    height: 80,
     paddingTop: 38,
     alignSelf: "flex-start",
     marginLeft: 25,
@@ -45,22 +44,24 @@ export const globalStyles = StyleSheet.create({
     marginRight: 100,
   },
   calculatorContent: {
-    flex: 2,
     padding: 15,
-    backgroundColor: "white",
+    backgroundColor: "#0082C6",
+    borderWidth: 5,
+    borderRadius: 10,
+    borderColor: "#fff",
     width: 400,
+    height: 500
   },
   buttonList: {
-    flex: 3,
     flexDirection: "row",
     flexWrap: "wrap",
-
     justifyContent: "space-between",
-    marginTop: 10,
   },
   picker: {
     width: 360,
-    color: "#fff",
+    margin: 10,
+    color: "#000",
+    backgroundColor: "#fff",
   },
   pickerItem: {
     fontSize: 18,
@@ -72,5 +73,18 @@ export const globalStyles = StyleSheet.create({
   input: {
     borderWidth: 2,
     borderColor: "black",
+  },
+  calculatorButton: {
+    width: 200,
+    height: 40,
+    backgroundColor: "white",
+    borderRadius: 20,
+    alignSelf: "center",
+    marginTop: 10
+  },
+  calculatorButtonText: {
+    fontWeight: "bold",
+    fontSize: 20,
+    textAlign: "center"
   }
 });

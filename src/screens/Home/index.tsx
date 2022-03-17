@@ -6,6 +6,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { globalStyles } from "../../styles/global";
 import { Header, SubHeader } from "../../components/Header";
@@ -13,6 +14,7 @@ import SympleSupportedBeams from "../../components/SymplySupportedBeams";
 import CantileverBeams from "../../components/CantileverBeams";
 import { Picker } from "@react-native-picker/picker";
 import BeamsWithOverhang from "../../components/BeamswithOverhang";
+import CalculatorInput from "../../components/CalculatorInput";
 
 const Home = ({}) => {
   const [beamsType, setBeamsType] = useState([
@@ -38,7 +40,20 @@ const Home = ({}) => {
     <View style={globalStyles.container}>
       <Header text="Beam Design Formulas" />
       <View style={globalStyles.calculatorContent}>
-        <TextInput />
+        <CalculatorInput text="Comprimento da Viga, L" />
+        <CalculatorInput text="Carga da Viga, W" />
+        <CalculatorInput text="Ponto de interesse, x" />
+        <CalculatorInput text="Young Modulus, E" />
+        <CalculatorInput text="Momento de Inercia, I" />
+
+        <TouchableOpacity
+          onPress={() => console.log("aaa")}
+          accessibilityLabel="Learn more about this purple button"
+        >
+          <View style={globalStyles.calculatorButton}>
+            <Text style={globalStyles.calculatorButtonText}>Calcular</Text>
+          </View>
+        </TouchableOpacity>
       </View>
       <Picker
         style={globalStyles.picker}

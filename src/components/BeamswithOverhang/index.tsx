@@ -15,4 +15,12 @@ const BeamsWithOverhang = ({}) => {
   );
 };
 
+export const SimpleBeamWithPlsEquallySpaced = ({}) => {
+  return(
+    <View></View>
+  );
+}
+
+
+
 export default BeamsWithOverhang;

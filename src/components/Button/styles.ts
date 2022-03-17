@@ -3,12 +3,11 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
     button: {
       backgroundColor: '#FFD12B',
-      width: 165,
+      width: 130,
       height: 130,
       paddingVertical: 14,
       paddingHorizontal: 10,
       margin: 5,
-      marginTop: 10,
       borderRadius: 40,
       borderWidth: 2,
       borderColor: '#fff',
