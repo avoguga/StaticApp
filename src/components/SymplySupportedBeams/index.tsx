@@ -8,24 +8,12 @@ import CalculatorInput, { CalculatorInputResult } from "../CalculatorInput";
 interface IProps {
   buttonFunction?: any;
 }
-export const isSimpleBeamWithUDLClicked = false;
-export const isSimpleBeamWithUILClicked = false;
-export const isSimpleBeamWithPlsEquallySpacedClicked = false;
-export const isCantileverBeamsClicked = false;
-export const isBeamsWithOverhangClicked = false;
 
 const SympleSupportedBeams: React.FC<IProps> = ({ buttonFunction }) => {
-
   return (
     <View style={globalStyles.buttonList}>
-      <Button
-        onPress={() => !isSimpleBeamWithUDLClicked}
-        text="Simple Beam with UDL"
-      />
-      <Button
-        onPress={() => !isSimpleBeamWithUILClicked}
-        text="Simple Beam with UIL"
-      />
+      <Button text="Simple Beam with UDL" />
+      <Button text="Simple Beam with UIL" />
       <Button text="Simple Beam with Central UIL" />
       <Button text="Simple Beam with PDUL" />
       <Button text="Simple Beam with PDUL at One End" />

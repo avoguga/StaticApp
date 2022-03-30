@@ -1,5 +1,11 @@
 import React, { useState, useRef } from "react";
-import { View, ScrollView, useWindowDimensions, Image } from "react-native";
+import {
+  View,
+  ScrollView,
+  useWindowDimensions,
+  Image,
+  Text,
+} from "react-native";
 import { globalStyles } from "../../styles/global";
 import { Header } from "../../components/Header";
 import SympleSupportedBeams, {
@@ -32,27 +38,12 @@ const Home = ({}) => {
     }
   };
 
-  export const CalculatorDisplay: any = () => {
-    const SimpleBWUDL = () => {
-      return <SimpleBeamWithUDL />;
-    };
-  
-    const SimpleBWUIL = () => {
-      return <SimpleBeamWithUIL />;
-    };
-  };
-  
-
   const windowHeight = useWindowDimensions().height;
   const img: any = "../../../assets/aaa.png";
   return (
     <View style={[{ minHeight: Math.round(windowHeight) }]}>
       <View style={globalStyles.container}>
         <Header text="Beam Design Formulas" />
-        <ScrollView style={globalStyles.calculatorContent}>
-          <CalculatorDisplay />
-          <Image source={img} />
-        </ScrollView>
 
         <Picker
           style={globalStyles.picker}
@@ -72,7 +63,7 @@ const Home = ({}) => {
           })}
         </Picker>
         <View style={globalStyles.content}>
-          <ScrollView horizontal>
+          <ScrollView>
             <View>{ScreenDisplay()}</View>
           </ScrollView>
         </View>
