@@ -58,6 +58,7 @@ const Home = ({}) => {
                 style={globalStyles.pickerItem}
                 label={beams}
                 value={beams}
+                key={beams}
               />
             );
           })}

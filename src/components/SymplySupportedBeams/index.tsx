@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { View, TextInput } from "react-native";
 import { globalStyles } from "../../styles/global";
@@ -5,15 +6,21 @@ import { Button } from "../BeamButton";
 import { CalculateButton } from "../CalculateButton";
 import CalculatorInput, { CalculatorInputResult } from "../CalculatorInput";
 
-interface IProps {
-  buttonFunction?: any;
-}
+interface IProps {}
 
-const SympleSupportedBeams: React.FC<IProps> = ({ buttonFunction }) => {
+const SympleSupportedBeams: React.FC<IProps> = ({}) => {
+  const navigation: any = useNavigation();
+
   return (
     <View style={globalStyles.buttonList}>
-      <Button text="Simple Beam with UDL" />
-      <Button text="Simple Beam with UIL" />
+      <Button
+        onPress={() => navigation.navigate("SimpleBeamWithUDL")}
+        text="Simple Beam with UDL"
+      />
+      <Button
+        onPress={() => navigation.navigate("SimpleBeamWithUIL")}
+        text="Simple Beam with UIL"
+      />
       <Button text="Simple Beam with Central UIL" />
       <Button text="Simple Beam with PDUL" />
       <Button text="Simple Beam with PDUL at One End" />
