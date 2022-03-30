@@ -1,23 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   View,
   ScrollView,
   useWindowDimensions,
-  Image,
-  Text,
 } from "react-native";
 import { globalStyles } from "../../styles/global";
-import { Header } from "../../components/Header";
-import SympleSupportedBeams, {
-  SimpleBeamWithUDL,
-  SimpleBeamWithUIL,
-} from "../../components/SymplySupportedBeams";
+import SympleSupportedBeams from "../../components/SymplySupportedBeams";
 import CantileverBeams from "../../components/CantileverBeams";
 import { Picker } from "@react-native-picker/picker";
-import BeamsWithOverhang, {
-  SimpleBeamWithPlsEquallySpaced,
-} from "../../components/BeamswithOverhang";
-import CalculatorInput from "../../components/CalculatorInput";
+import BeamsWithOverhang from "../../components/BeamswithOverhang";
 
 const Home = ({}) => {
   const [beamsType, setBeamsType] = useState([
@@ -43,8 +34,6 @@ const Home = ({}) => {
   return (
     <View style={[{ minHeight: Math.round(windowHeight) }]}>
       <View style={globalStyles.container}>
-        <Header text="Beam Design Formulas" />
-
         <Picker
           style={globalStyles.picker}
           selectedValue={selectedBeamsType}
@@ -63,11 +52,10 @@ const Home = ({}) => {
             );
           })}
         </Picker>
-        <View style={globalStyles.content}>
-          <ScrollView>
-            <View>{ScreenDisplay()}</View>
-          </ScrollView>
-        </View>
+
+        <ScrollView>
+          <View>{ScreenDisplay()}</View>
+        </ScrollView>
       </View>
     </View>
   );

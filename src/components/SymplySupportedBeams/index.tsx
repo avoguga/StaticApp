@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { View, TextInput } from "react-native";
+import { View, ScrollView } from "react-native";
 import { globalStyles } from "../../styles/global";
 import { Button } from "../BeamButton";
 import { CalculateButton } from "../CalculateButton";
@@ -21,14 +21,38 @@ const SympleSupportedBeams: React.FC<IProps> = ({}) => {
         onPress={() => navigation.navigate("SimpleBeamWithUIL")}
         text="Simple Beam with UIL"
       />
-      <Button text="Simple Beam with Central UIL" />
-      <Button text="Simple Beam with PDUL" />
-      <Button text="Simple Beam with PDUL at One End" />
-      <Button text="Simple Beam with PL at Centre" />
-      <Button text="Simple Beam with PL at Any Point" />
-      <Button text="Simple Beam with PLs Equally Spaced" />
-      <Button text="Beam with PLs Unequally Spaced" />
-      <Button text="Beam with UPLs Unequally Spaced" />
+      <Button
+        onPress={() => navigation.navigate("SimpleBeamWithCentralUIL")}
+        text="Simple Beam with Central UIL"
+      />
+      <Button
+        onPress={() => navigation.navigate("SimpleBeamWithPDUL")}
+        text="Simple Beam with PDUL"
+      />
+      <Button
+        onPress={() => navigation.navigate("SimpleBeamWithPDULAtOneEnd")}
+        text="Simple Beam with PDUL at One End"
+      />
+      <Button
+        onPress={() => navigation.navigate("SimpleBeamWithPLAtCentre")}
+        text="Simple Beam with PL at Centre"
+      />
+      <Button
+        onPress={() => navigation.navigate("SimpleBeamWithPLAtAnyPoint")}
+        text="Simple Beam with PL at Any Point"
+      />
+      <Button
+        onPress={() => navigation.navigate("SimpleBeamWithPLSEquallySpaced")}
+        text="Simple Beam with PLs Equally Spaced"
+      />
+      <Button
+        onPress={() => navigation.navigate("BeamWithPLSUnequallySpaced")}
+        text="Beam with PLs Unequally Spaced"
+      />
+      <Button
+        onPress={() => navigation.navigate("BeamWithUPLSUnequallySpaced")}
+        text="Beam with UPLs Unequally Spaced"
+      />
     </View>
   );
 };
@@ -66,18 +90,18 @@ export const SimpleBeamWithUDL = ({}) => {
 
   const Result = () => {
     return (
-      <View>
-        <CalculatorInputResult text="Força Resultante, R" value={forca} />
-        <CalculatorInputResult text="Max Shear, Vmax" value={tensaoMax} />
-        <CalculatorInputResult text="Shear at x, Vx" value={tensaoX} />
-        <CalculatorInputResult text="Max. Moment, Mmax" value={momentoMax} />
-        <CalculatorInputResult text="Moment at x, Mx" value={momentoX} />
+      <View style={globalStyles.calculatorContent}>
+        <CalculatorInputResult text="Força Resultante, R:" value={forca} />
+        <CalculatorInputResult text="Max Shear, Vmax:" value={tensaoMax} />
+        <CalculatorInputResult text="Shear at x, Vx:" value={tensaoX} />
+        <CalculatorInputResult text="Max. Moment, Mmax:" value={momentoMax} />
+        <CalculatorInputResult text="Moment at x, Mx:" value={momentoX} />
         <CalculatorInputResult
-          text="Max Deflection, ∆max"
+          text="Max Deflection, ∆max:"
           value={deflexaoMax.toFixed(7)}
         />
         <CalculatorInputResult
-          text="Deflection at x, ∆x"
+          text="Deflection at x, ∆x:"
           value={deflexaoX.toFixed(7)}
         />
         <CalculateButton
@@ -90,33 +114,33 @@ export const SimpleBeamWithUDL = ({}) => {
 
   const Calculation = () => {
     return (
-      <View>
+      <View style={globalStyles.calculatorContent}>
         <CalculatorInput
-          text="Comprimento da Viga, L"
+          text="Comprimento da Viga, L:"
           value={String(comprimentoViga)}
           unit={"m"}
           setValue={setComprimentoViga}
         />
         <CalculatorInput
-          text="Carga da Viga, W"
+          text="Carga da Viga, W:"
           value={String(cargaViga)}
           unit={"kN/m"}
           setValue={setCargaViga}
         />
         <CalculatorInput
-          text="Ponto de interesse, x"
+          text="Ponto de interesse, x:"
           value={String(pontoInteresse)}
           unit={"m"}
           setValue={setPontoInteresse}
         />
         <CalculatorInput
-          text="Young Modulus, E"
+          text="Young Modulus, E:"
           value={String(youngsModulus)}
           unit={"MPa"}
           setValue={setYoungModulus}
         />
         <CalculatorInput
-          text="Momento de Inercia, I"
+          text="Momento de Inercia, I:"
           value={String(momentoInercia)}
           unit={"mm4"}
           setValue={setMomentoInercia}
@@ -143,19 +167,19 @@ export const SimpleBeamWithUDL = ({}) => {
 
 export const SimpleBeamWithUIL = ({}) => {
   return (
-    <View>
-      <CalculatorInput text="Comprimento da Viga, L" />
-      <CalculatorInput text="Carga da Viga, W" />
-      <CalculatorInput text="Ponto de interesse, x" />
-      <CalculatorInput text="Young Modulus, E" />
-      <CalculatorInput text="Momento de Inercia, I" />
+    <View style={globalStyles.calculatorContent}>
+      <CalculatorInput text="Comprimento da Viga, L:" />
+      <CalculatorInput text="Carga da Viga, W:" />
+      <CalculatorInput text="Ponto de interesse, x:" />
+      <CalculatorInput text="Young Modulus, E:" />
+      <CalculatorInput text="Momento de Inercia, I:" />
     </View>
   );
 };
 
 export const SimpleBeamWithCentralUIL = ({}) => {
   return (
-    <View>
+    <View style={globalStyles.calculatorContent}>
       <CalculatorInput text="Comprimento da Viga, L" />
       <CalculatorInput text="Carga da Viga, W" />
       <CalculatorInput text="Ponto de interesse, x" />
@@ -166,6 +190,78 @@ export const SimpleBeamWithCentralUIL = ({}) => {
 };
 
 export const SimpleBeamWithPDUL = ({}) => {
+  return (
+    <View style={globalStyles.calculatorContent}>
+      <CalculatorInput text="Comprimento da Viga, L" />
+      <CalculatorInput text="Carga da Viga, W" />
+      <CalculatorInput text="Ponto de interesse, x" />
+      <CalculatorInput text="Young Modulus, E" />
+      <CalculatorInput text="Momento de Inercia, I" />
+    </View>
+  );
+};
+
+export const SimpleBeamWithPDULAtOneEnd = ({}) => {
+  return (
+    <View style={globalStyles.calculatorContent}>
+      <CalculatorInput text="Comprimento da Viga, L" />
+      <CalculatorInput text="Carga da Viga, W" />
+      <CalculatorInput text="Ponto de interesse, x" />
+      <CalculatorInput text="Young Modulus, E" />
+      <CalculatorInput text="Momento de Inercia, I" />
+    </View>
+  );
+};
+
+export const SimpleBeamWithPLAtCentre = ({}) => {
+  return (
+    <View style={globalStyles.calculatorContent}>
+      <CalculatorInput text="Comprimento da Viga, L" />
+      <CalculatorInput text="Carga da Viga, W" />
+      <CalculatorInput text="Ponto de interesse, x" />
+      <CalculatorInput text="Young Modulus, E" />
+      <CalculatorInput text="Momento de Inercia, I" />
+    </View>
+  );
+};
+
+export const SimpleBeamWithPLAtAnyPoint = ({}) => {
+  return (
+    <View style={globalStyles.calculatorContent}>
+      <CalculatorInput text="Comprimento da Viga, L" />
+      <CalculatorInput text="Carga da Viga, W" />
+      <CalculatorInput text="Ponto de interesse, x" />
+      <CalculatorInput text="Young Modulus, E" />
+      <CalculatorInput text="Momento de Inercia, I" />
+    </View>
+  );
+};
+
+export const SimpleBeamWithPLSEquallySpaced = ({}) => {
+  return (
+    <View style={globalStyles.calculatorContent}>
+      <CalculatorInput text="Comprimento da Viga, L" />
+      <CalculatorInput text="Carga da Viga, W" />
+      <CalculatorInput text="Ponto de interesse, x" />
+      <CalculatorInput text="Young Modulus, E" />
+      <CalculatorInput text="Momento de Inercia, I" />
+    </View>
+  );
+};
+
+export const BeamWithPLSUnequallySpaced = ({}) => {
+  return (
+    <View style={globalStyles.calculatorContent}>
+      <CalculatorInput text="Comprimento da Viga, L" />
+      <CalculatorInput text="Carga da Viga, W" />
+      <CalculatorInput text="Ponto de interesse, x" />
+      <CalculatorInput text="Young Modulus, E" />
+      <CalculatorInput text="Momento de Inercia, I" />
+    </View>
+  );
+};
+
+export const BeamWithUPLSUnequallySpaced = ({}) => {
   return (
     <View>
       <CalculatorInput text="Comprimento da Viga, L" />

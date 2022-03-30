@@ -1,39 +1,17 @@
 import { StyleSheet, Dimensions } from "react-native";
 
 export const globalStyles = StyleSheet.create({
-  header: {
-    paddingTop: 38,
-    alignSelf: "flex-start",
-    marginLeft: 25,
-    marginBottom: 10,
-  },
-  headerTitle: {
-    fontWeight: "bold",
-    fontSize: 24,
-    color: "#fff",
-  },
-  subHeader: {
-    alignSelf: "flex-start",
-    marginLeft: 25,
-  },
-  subHeaderTitle: {
-    fontWeight: "bold",
-    fontSize: 20,
-    color: "#fff",
-  },
 
   container: {
-    flex: 1,
-    backgroundColor: "#0082C6",
+    backgroundColor: "#303030",
     alignItems: "center",
     justifyContent: "center",
+    height: Dimensions.get("window").height,
   },
   simpleContainer: {
-    flex: 1,
-    backgroundColor: "#0082C6",
+    backgroundColor: "#303030",
   },
   content: {
-    flexDirection: "row",
     padding: 15,
   },
   contentTitle: {
@@ -43,19 +21,16 @@ export const globalStyles = StyleSheet.create({
     marginRight: 100,
   },
   calculatorContent: {
-    flex: 2,
-    marginTop: 30,
-    padding: 15,
-    backgroundColor: "#0082C6",
-    borderBottomWidth: 5,
-    borderColor: "#fff",
-    width: 400,
-    height: 500
+    padding: 5,
+    backgroundColor: "#303030",
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
   buttonList: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
+    marginBottom: 100,
   },
   picker: {
     width: 360,

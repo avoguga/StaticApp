@@ -16,7 +16,6 @@ const CalculatorInput: React.FC<IProps> = ({
   unit,
   valorTexto,
 }) => {
-  
   return (
     <View>
       <View style={styles.container}>
@@ -47,7 +46,10 @@ export const CalculatorInputResult: React.FC<IProps> = ({
       <View style={styles.container}>
         <Text style={styles.text}>{text}</Text>
         <View style={styles.containerDisplay}>
-          <Text style={styles.resultDisplay}>{value}</Text>
+          <View style={styles.resultDisplay}>
+            <Text style={styles.resultDisplayText}>{value}</Text>
+          </View>
+
           <Text style={styles.unit}>{unit}</Text>
         </View>
       </View>
@@ -70,10 +72,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "#fff",
     width: 120,
-    height: 40,
+    height: "auto",
     marginTop: 5,
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     color: "#fff",
   },
@@ -82,17 +84,25 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "#fff",
     width: 150,
-    height: 40,
+    height: "auto",
     marginTop: 5,
-    textAlign: "center",
-    fontSize: 16,
+    textAlign: "auto",
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  resultDisplayText: {
+    marginLeft: 10,
+    marginTop: 5,
+    textAlign: "auto",
+    fontSize: 14,
     fontWeight: "bold",
     color: "#fff",
   },
   text: { fontSize: 18, fontWeight: "bold", color: "#fff" },
   unit: {
-    width: 50,
-    fontSize: 16,
+    width: 40,
+    fontSize: 10,
     fontWeight: "bold",
     color: "#fff",
     marginTop: 20,
