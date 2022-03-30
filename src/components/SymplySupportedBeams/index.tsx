@@ -201,7 +201,6 @@ export const SimpleBeamWithUIL = ({}) => {
 
   const deflexaoX = (a / b) * (c - d + e) * 1000000;
 
-  console.log(deflexaoX);
   const Result = () => {
     return (
       <View style={globalStyles.calculatorContent}>
@@ -292,7 +291,7 @@ export const SimpleBeamWithUIL = ({}) => {
 
 export const SimpleBeamWithCentralUIL = ({}) => {
   const [comprimentoViga, setComprimentoViga] = useState(1);
-  const [cargaViga, setCargaViga] = useState(1);
+  const [cargaViga, setCargaViga] = useState(1000);
   const [pontoInteresse, setPontoInteresse] = useState(0.5);
   const [youngsModulus, setYoungModulus] = useState(200000);
   const [momentoInercia, setMomentoInercia] = useState(8333333);
@@ -300,25 +299,41 @@ export const SimpleBeamWithCentralUIL = ({}) => {
 
   const resultante = cargaViga / 2;
 
-  const tensaoX = 2 * (cargaViga / 3) * 1000;
+  const tensaoX =
+    (cargaViga / (2 * comprimentoViga ** 2)) *
+    (comprimentoViga ** 2 - 4 * pontoInteresse ** 2);
 
-  const momentoMax = (cargaViga * (comprimentoViga * comprimentoViga)) / 8;
+  const momentoMax = (cargaViga * comprimentoViga) / 6;
 
-  const momentoX =
-    ((cargaViga * pontoInteresse) / 2) * (comprimentoViga - pontoInteresse);
+  // Constante para o calculo de Mx
+
+  const wx = cargaViga * pontoInteresse;
+  const pontoInteresseElevado = 2 * pontoInteresse ** 2;
+  const comprimentoVigaELevado = 3 * comprimentoViga ** 2;
+
+  const momentoX = wx * (0.5 - pontoInteresseElevado / comprimentoVigaELevado);
 
   const deflexaoMax =
-    ((5 * cargaViga * comprimentoViga ** 4) /
-      (384 * youngsModulus * momentoInercia)) *
-    1000000000;
+    ((cargaViga * comprimentoViga ** 3) /
+      (60 * youngsModulus * momentoInercia)) *
+    1000000;
 
-  const deflexaoX =
-    ((cargaViga * pontoInteresse) / (24 * youngsModulus * momentoInercia)) *
-    (comprimentoViga ** 3 -
-      2 * comprimentoViga * pontoInteresse ** 2 +
-      pontoInteresse ** 3) *
-    1000000000;
+  // Constantes para o calculo de deflexao
 
+  const compElevado = comprimentoViga ** 2;
+  const pontElevado = pontoInteresse ** 2;
+
+  const a = cargaViga * pontoInteresse;
+  const b = 480 * youngsModulus * momentoInercia * compElevado;
+  const c = 5 * compElevado;
+  const d = 4 * pontElevado;
+  const e = a / b;  
+  const f = (c - d) ** 2;
+  const g = e * f;
+  const deflexaoX = g * 1000000;
+
+  console.log("dX: ", deflexaoX);
+  console.log("dMax: ", deflexaoMax);
   const Result = () => {
     return (
       <View style={globalStyles.calculatorContent}>
@@ -330,8 +345,14 @@ export const SimpleBeamWithCentralUIL = ({}) => {
           text="Shear at x, Vx:"
           value={tensaoX.toFixed(6)}
         />
-        <CalculatorInputResult text="Max. Moment, Mmax:" value={momentoMax} />
-        <CalculatorInputResult text="Moment at x, Mx:" value={momentoX} />
+        <CalculatorInputResult
+          text="Max. Moment, Mmax:"
+          value={momentoMax.toFixed(6)}
+        />
+        <CalculatorInputResult
+          text="Moment at x, Mx:"
+          value={momentoX.toFixed(6)}
+        />
         <CalculatorInputResult
           text="Max Deflection, ∆max:"
           value={deflexaoMax.toFixed(6)}
