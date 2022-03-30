@@ -1,13 +1,10 @@
 import React, { useState, useRef } from "react";
-import {
-  View,
-  ScrollView,
-  useWindowDimensions,
-} from "react-native";
+import { View, ScrollView, useWindowDimensions, Image } from "react-native";
 import { globalStyles } from "../../styles/global";
 import { Header } from "../../components/Header";
 import SympleSupportedBeams, {
   SimpleBeamWithUDL,
+  SimpleBeamWithUIL,
 } from "../../components/SymplySupportedBeams";
 import CantileverBeams from "../../components/CantileverBeams";
 import { Picker } from "@react-native-picker/picker";
@@ -35,26 +32,28 @@ const Home = ({}) => {
     }
   };
 
-  const Calculate = () => {
-    if (selectedBeamsType === "Vigas Biapoiadas") {
-      return <SympleSupportedBeams />;
-    } else if (selectedBeamsType === "Vigas Engasgadas em Balanço") {
-      return <CantileverBeams />;
-    } else if (selectedBeamsType === "Vigas Biapoiadas com balanço") {
-      return <BeamsWithOverhang />;
-    }
+  export const CalculatorDisplay: any = () => {
+    const SimpleBWUDL = () => {
+      return <SimpleBeamWithUDL />;
+    };
+  
+    const SimpleBWUIL = () => {
+      return <SimpleBeamWithUIL />;
+    };
   };
+  
 
   const windowHeight = useWindowDimensions().height;
-
+  const img: any = "../../../assets/aaa.png";
   return (
     <View style={[{ minHeight: Math.round(windowHeight) }]}>
       <View style={globalStyles.container}>
         <Header text="Beam Design Formulas" />
-        <View style={globalStyles.calculatorContent}>
-          <SimpleBeamWithUDL />
-        </View>
-        
+        <ScrollView style={globalStyles.calculatorContent}>
+          <CalculatorDisplay />
+          <Image source={img} />
+        </ScrollView>
+
         <Picker
           style={globalStyles.picker}
           selectedValue={selectedBeamsType}

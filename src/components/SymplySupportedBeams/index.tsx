@@ -5,11 +5,27 @@ import { Button } from "../BeamButton";
 import { CalculateButton } from "../CalculateButton";
 import CalculatorInput, { CalculatorInputResult } from "../CalculatorInput";
 
-const SympleSupportedBeams = ({}) => {
+interface IProps {
+  buttonFunction?: any;
+}
+export const isSimpleBeamWithUDLClicked = false;
+export const isSimpleBeamWithUILClicked = false;
+export const isSimpleBeamWithPlsEquallySpacedClicked = false;
+export const isCantileverBeamsClicked = false;
+export const isBeamsWithOverhangClicked = false;
+
+const SympleSupportedBeams: React.FC<IProps> = ({ buttonFunction }) => {
+
   return (
     <View style={globalStyles.buttonList}>
-      <Button text="Simple Beam with UDL" />
-      <Button text="Simple Beam with UIL" />
+      <Button
+        onPress={() => !isSimpleBeamWithUDLClicked}
+        text="Simple Beam with UDL"
+      />
+      <Button
+        onPress={() => !isSimpleBeamWithUILClicked}
+        text="Simple Beam with UIL"
+      />
       <Button text="Simple Beam with Central UIL" />
       <Button text="Simple Beam with PDUL" />
       <Button text="Simple Beam with PDUL at One End" />
@@ -29,7 +45,6 @@ export const SimpleBeamWithUDL = ({}) => {
   const [youngsModulus, setYoungModulus] = useState(200000);
   const [momentoInercia, setMomentoInercia] = useState(8333333);
   const [isClicked, setIsClicked] = useState(false);
-
 
   const forca = (cargaViga * comprimentoViga) / 2;
 
@@ -54,14 +69,6 @@ export const SimpleBeamWithUDL = ({}) => {
       pontoInteresse ** 3) *
     1000000000;
 
-  const myReturn = () => {
-    if (isClicked === false) {
-      return <Calculation />;
-    } else {
-      return <Result />;
-    }
-  };
-
   const Result = () => {
     return (
       <View>
@@ -74,7 +81,10 @@ export const SimpleBeamWithUDL = ({}) => {
           text="Max Deflection, ∆max"
           value={deflexaoMax.toFixed(7)}
         />
-        <CalculatorInputResult text="Deflection at x, ∆x" value={deflexaoX.toFixed(7)} />
+        <CalculatorInputResult
+          text="Deflection at x, ∆x"
+          value={deflexaoX.toFixed(7)}
+        />
         <CalculateButton
           text="Retornar"
           onPress={() => setIsClicked((isClicked) => !isClicked)}
@@ -123,6 +133,14 @@ export const SimpleBeamWithUDL = ({}) => {
         />
       </View>
     );
+  };
+
+  const myReturn = () => {
+    if (isClicked === false) {
+      return Calculation();
+    } else {
+      return Result();
+    }
   };
 
   return myReturn();
