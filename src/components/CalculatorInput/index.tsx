@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput } from "react-native";
 
 interface IProps {
   text?: string;
+  textUnit?: string;
   value?: any;
   setValue?: any;
   unit?: string;
@@ -40,11 +41,13 @@ export const CalculatorInputResult: React.FC<IProps> = ({
   text,
   value,
   unit,
+  textUnit
 }) => {
   return (
     <View>
       <View style={styles.container}>
         <Text style={styles.text}>{text}</Text>
+        <Text style={styles.textUnit}>{textUnit}</Text>
         <View style={styles.containerDisplay}>
           <View style={styles.resultDisplay}>
             <Text style={styles.resultDisplayText}>{value}</Text>
@@ -99,7 +102,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
   },
-  text: { fontSize: 18, fontWeight: "bold", color: "#fff" },
+  text: { fontSize: 16, fontWeight: "bold", color: "#fff" },
+  textUnit: { fontSize: 12, fontWeight: "bold", color: "#fff" },
   unit: {
     width: 40,
     fontSize: 10,
