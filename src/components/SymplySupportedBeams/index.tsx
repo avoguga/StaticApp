@@ -453,13 +453,47 @@ export const SimpleBeamWithPDULAtOneEnd = ({}) => {
   const momentoMax = resultante ** 2 / (2 * cargaViga);
 
   const wx2 = cargaViga * pontoInteresse ** 2;
-  const momentoX = resultante * pontoInteresse - wx2 / 2;
 
-  // Calculo deflexão foi chato fazer esse.
+  
+  
+  const momentoX = pontoInteresse < beamWidth
+  ?  resultante * pontoInteresse - wx2 / 2
+  : wa2L2 * (comprimentoViga - pontoInteresse);
+ 
 
-  const calculoDeflexaoMenorQueA = 10;
-  const calculoDeflexaoMaiorQueA = 20;
-  const deflexaoX = pontoInteresse < beamWidth ? calculoDeflexaoMenorQueA : calculoDeflexaoMaiorQueA;
+  // preCalculoDeflexaoMenorQueA - foi chato fazer esse.
+  const wx = cargaViga * pontoInteresse;
+  const EIL24 = 24 * youngsModulus * momentoInercia * comprimentoViga;
+  const wxDivididoEIL24 = wx / EIL24;
+  const beamLoadElevado = beamWidth ** 2;
+  const L2MenosA = (2 * comprimentoViga - beamWidth) ** 2;
+  const doisAXElevado = 2 * beamWidth * pontoInteresse ** 2;
+  const doisLMenosA = 2 * comprimentoViga - beamWidth;
+  const lxElevadoATerceira = comprimentoViga * pontoInteresse ** 3;
+
+  // preCalculoDeflexaoMaiorQueA - foi chato fazer esse.
+  const waElevadoLMenosX = cargaViga * beamWidth ** 2 * (comprimentoViga - pontoInteresse);
+  const vinteQuatroEIL = 24 * youngsModulus * momentoInercia * comprimentoViga;
+  const primeiraParte = waElevadoLMenosX / vinteQuatroEIL;
+  const quatroXL = 4 * pontoInteresse * comprimentoViga;
+  const doisXElevado = 2 * pontoInteresse ** 2;
+  const segundaParte = (quatroXL - doisXElevado - beamWidth ** 2)
+
+  const preCalculoDeflexaoMenorQueA =
+    beamLoadElevado * L2MenosA -
+    doisAXElevado * doisLMenosA +
+    lxElevadoATerceira;
+
+  const calculoDeflexaoMenorQueA =
+    wxDivididoEIL24 * preCalculoDeflexaoMenorQueA;
+  const calculoDeflexaoMaiorQueA = 
+    primeiraParte * segundaParte;
+  const deflexaoX =
+    pontoInteresse < beamWidth
+      ? calculoDeflexaoMenorQueA * 1000000000
+      : calculoDeflexaoMaiorQueA * 1000000000;
+
+  console.log(deflexaoX * 1000000000);
 
   const Result = () => {
     return (
