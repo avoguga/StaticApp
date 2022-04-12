@@ -422,15 +422,126 @@ export const SimpleBeamWithCentralUIL = ({}) => {
 };
 
 export const SimpleBeamWithPDUL = ({}) => {
-  return (
-    <View style={globalStyles.calculatorContent}>
-      <CalculatorInput text="Comprimento da Viga, L" />
-      <CalculatorInput text="Carga da Viga, W" />
-      <CalculatorInput text="Ponto de interesse, x" />
-      <CalculatorInput text="Young Modulus, E" />
-      <CalculatorInput text="Momento de Inercia, I" />
-    </View>
-  );
+  const [meuA, setMeuA] = useState(0.5);
+  const [meuB, setMeuB] = useState(0.5);
+  const [meuC, setMeuC] = useState(0.5);
+  const [loadOnBeam, setLoadOnBeam] = useState(1.0);
+  const [pontoInteresse, setPontoInteresse] = useState(0.75);
+  const [isClicked, setIsClicked] = useState(false);
+
+  const L = meuA * 1 + meuB * 1 + meuC * 1;
+
+  const wbSobre2L = (loadOnBeam * meuB) / (2 * L);
+  const C2MaisB = meuC * 2 + meuB;
+  const A2MaisB = meuA * 2 + meuB;
+
+  const resultant = wbSobre2L * C2MaisB;
+
+  const resultant2 = wbSobre2L * A2MaisB;
+
+  const Vx = resultant - loadOnBeam * (pontoInteresse - meuA);
+
+  const R1Sobre2W = (resultant / 2) * loadOnBeam;
+
+  const MMax = resultant * (1 * meuA + R1Sobre2W);
+
+  if (pontoInteresse < meuA) {
+    var Mx = resultant * pontoInteresse;
+  } else if (meuA < pontoInteresse && pontoInteresse < 1 * meuA + meuB * 1) {
+    var Mx =
+      resultant * pontoInteresse -
+      (loadOnBeam / 2) * (pontoInteresse - meuA * 1) ** 2;
+  } else if (pontoInteresse > 1 * meuA + meuB * 1) {
+    var Mx = resultant2 * (L - pontoInteresse);
+  }
+
+  const Result = () => {
+    return (
+      <View style={globalStyles.calculatorContent}>
+        <CalculatorInputResult
+          text="Lenght of Beam, L:"
+          value={L.toFixed(6)}
+        />
+        <CalculatorInputResult
+          text="Resultante, R1 = V1:"
+          value={resultant.toFixed(6)}
+        />
+        <CalculatorInputResult
+          text="Resultant, R2 = V2:"
+          value={resultant2.toFixed(6)}
+        />
+        <CalculatorInputResult
+          text="Shear at x, Vx:"
+          value={Vx.toFixed(6)}
+        />
+        <CalculatorInputResult
+          text="Max. Moment, Mmax:"
+          value={MMax.toFixed(6)}
+        />
+        <CalculatorInputResult
+          text="Moment at x, Mx:"
+          value={Mx.toFixed(6)}
+        />
+        
+        <CalculateButton
+          text="Retornar"
+          onPress={() => setIsClicked((isClicked) => !isClicked)}
+        />
+      </View>
+    );
+  };
+  const Calculation = () => {
+    return (
+      <View style={globalStyles.calculatorContent}>
+        <CalculatorInput
+          text="Comprimento da Viga, L:"
+          value={String(meuA)}
+          unit={"m"}
+          setValue={setMeuA}
+        />
+        <CalculatorInput
+          text="Width of Load, a:"
+          value={String(meuB)}
+          unit={"m"}
+          setValue={setMeuB}
+        />
+        <CalculatorInput
+          text="Carga da Viga, W:"
+          value={String(meuC)}
+          unit={"kN/m"}
+          setValue={setMeuC}
+        />
+        <CalculatorInput
+          text="Ponto de interesse, x:"
+          value={String(pontoInteresse)}
+          unit={"m"}
+          setValue={setPontoInteresse}
+        />
+        <CalculatorInput
+          text="Young Modulus, E:"
+          value={String(loadOnBeam)}
+          unit={"MPa"}
+          setValue={setLoadOnBeam}
+        />
+      
+
+        <CalculateButton
+          text="Calcular"
+          onPress={() => setIsClicked((isClicked) => !isClicked)}
+        />
+      </View>
+    );
+  };
+
+  const myReturn = () => {
+    if (isClicked === false) {
+      return Calculation();
+    } else {
+      return Result();
+    }
+  };
+
+  return myReturn();
 };
 
 export const SimpleBeamWithPDULAtOneEnd = ({}) => {
@@ -454,12 +565,10 @@ export const SimpleBeamWithPDULAtOneEnd = ({}) => {
 
   const wx2 = cargaViga * pontoInteresse ** 2;
 
-  
-  
-  const momentoX = pontoInteresse < beamWidth
-  ?  resultante * pontoInteresse - wx2 / 2
-  : wa2L2 * (comprimentoViga - pontoInteresse);
- 
+  const momentoX =
+    pontoInteresse < beamWidth
+      ? resultante * pontoInteresse - wx2 / 2
+      : wa2L2 * (comprimentoViga - pontoInteresse);
 
   // preCalculoDeflexaoMenorQueA - foi chato fazer esse.
   const wx = cargaViga * pontoInteresse;
@@ -472,12 +581,13 @@ export const SimpleBeamWithPDULAtOneEnd = ({}) => {
   const lxElevadoATerceira = comprimentoViga * pontoInteresse ** 3;
 
   // preCalculoDeflexaoMaiorQueA - foi chato fazer esse.
-  const waElevadoLMenosX = cargaViga * beamWidth ** 2 * (comprimentoViga - pontoInteresse);
+  const waElevadoLMenosX =
+    cargaViga * beamWidth ** 2 * (comprimentoViga - pontoInteresse);
   const vinteQuatroEIL = 24 * youngsModulus * momentoInercia * comprimentoViga;
   const primeiraParte = waElevadoLMenosX / vinteQuatroEIL;
   const quatroXL = 4 * pontoInteresse * comprimentoViga;
   const doisXElevado = 2 * pontoInteresse ** 2;
-  const segundaParte = (quatroXL - doisXElevado - beamWidth ** 2)
+  const segundaParte = quatroXL - doisXElevado - beamWidth ** 2;
 
   const preCalculoDeflexaoMenorQueA =
     beamLoadElevado * L2MenosA -
@@ -486,8 +596,7 @@ export const SimpleBeamWithPDULAtOneEnd = ({}) => {
 
   const calculoDeflexaoMenorQueA =
     wxDivididoEIL24 * preCalculoDeflexaoMenorQueA;
-  const calculoDeflexaoMaiorQueA = 
-    primeiraParte * segundaParte;
+  const calculoDeflexaoMaiorQueA = primeiraParte * segundaParte;
   const deflexaoX =
     pontoInteresse < beamWidth
       ? calculoDeflexaoMenorQueA * 1000000000
