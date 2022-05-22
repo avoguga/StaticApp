@@ -458,10 +458,7 @@ export const SimpleBeamWithPDUL = ({}) => {
   const Result = () => {
     return (
       <View style={globalStyles.calculatorContent}>
-        <CalculatorInputResult
-          text="Lenght of Beam, L:"
-          value={L.toFixed(6)}
-        />
+        <CalculatorInputResult text="Lenght of Beam, L:" value={L.toFixed(6)} />
         <CalculatorInputResult
           text="Resultante, R1 = V1:"
           value={resultant.toFixed(6)}
@@ -470,19 +467,13 @@ export const SimpleBeamWithPDUL = ({}) => {
           text="Resultant, R2 = V2:"
           value={resultant2.toFixed(6)}
         />
-        <CalculatorInputResult
-          text="Shear at x, Vx:"
-          value={Vx.toFixed(6)}
-        />
+        <CalculatorInputResult text="Shear at x, Vx:" value={Vx.toFixed(6)} />
         <CalculatorInputResult
           text="Max. Moment, Mmax:"
           value={MMax.toFixed(6)}
         />
-        <CalculatorInputResult
-          text="Moment at x, Mx:"
-          value={Mx.toFixed(6)}
-        />
-        
+        <CalculatorInputResult text="Moment at x, Mx:" value={Mx.toFixed(6)} />
+
         <CalculateButton
           text="Retornar"
           onPress={() => setIsClicked((isClicked) => !isClicked)}
@@ -494,22 +485,28 @@ export const SimpleBeamWithPDUL = ({}) => {
     return (
       <View style={globalStyles.calculatorContent}>
         <CalculatorInput
-          text="Comprimento da Viga, L:"
+          text="Comprimento da Viga, a:"
           value={String(meuA)}
           unit={"m"}
           setValue={setMeuA}
         />
         <CalculatorInput
-          text="Width of Load, a:"
+          text="Largura da carga, b:"
           value={String(meuB)}
           unit={"m"}
           setValue={setMeuB}
         />
         <CalculatorInput
-          text="Carga da Viga, W:"
+          text="Largura depois da carga, c:"
           value={String(meuC)}
           unit={"kN/m"}
           setValue={setMeuC}
+        />
+        <CalculatorInput
+          text="Carga da viga, w:"
+          value={String(loadOnBeam)}
+          unit={"MPa"}
+          setValue={setLoadOnBeam}
         />
         <CalculatorInput
           text="Ponto de interesse, x:"
@@ -517,13 +514,6 @@ export const SimpleBeamWithPDUL = ({}) => {
           unit={"m"}
           setValue={setPontoInteresse}
         />
-        <CalculatorInput
-          text="Young Modulus, E:"
-          value={String(loadOnBeam)}
-          unit={"MPa"}
-          setValue={setLoadOnBeam}
-        />
-      
 
         <CalculateButton
           text="Calcular"
@@ -698,15 +688,107 @@ export const SimpleBeamWithPDULAtOneEnd = ({}) => {
 };
 
 export const SimpleBeamWithPLAtCentre = ({}) => {
-  return (
-    <View style={globalStyles.calculatorContent}>
-      <CalculatorInput text="Comprimento da Viga, L" />
-      <CalculatorInput text="Carga da Viga, W" />
-      <CalculatorInput text="Ponto de interesse, x" />
-      <CalculatorInput text="Young Modulus, E" />
-      <CalculatorInput text="Momento de Inercia, I" />
-    </View>
-  );
+  const [comprimentoViga, setComprimentoViga] = useState(1);
+  const [cargaViga, setCargaViga] = useState(100);
+  const [pontoInteresse, setPontoInteresse] = useState(0.5);
+  const [youngsModulus, setYoungModulus] = useState(200000);
+  const [momentoInercia, setMomentoInercia] = useState(8333333);
+  const [isClicked, setIsClicked] = useState(false);
+
+  const forca = cargaViga / 2;
+
+  const tensaoMax = cargaViga / 2;
+
+  const momentoMax = (cargaViga * comprimentoViga) / 4;
+
+  const momentoX = (cargaViga * pontoInteresse) / 2;
+
+  const deflexaoMax =
+    ((cargaViga * comprimentoViga ** 3) /
+      (48 * momentoInercia * youngsModulus)) *
+    1000000000;
+  
+  const equacaoDeflexao = ((3 * comprimentoViga ** 2) - (4 * pontoInteresse ** 2));
+
+  const deflexaoX =
+    ((cargaViga * pontoInteresse) / (48 * youngsModulus * momentoInercia)) *
+    equacaoDeflexao *
+    1000000000;
+
+  const Result = () => {
+    return (
+      <View style={globalStyles.calculatorContent}>
+        <CalculatorInputResult text="Força Resultante, R:" value={forca} />
+        <CalculatorInputResult text="Max Shear, V:" value={tensaoMax} />
+        <CalculatorInputResult text="Max. Moment, Mmax:" value={momentoMax} />
+        <CalculatorInputResult text="Moment at x, Mx:" value={momentoX} />
+        <CalculatorInputResult
+          text="Max Deflection, ∆max:"
+          value={deflexaoMax.toFixed(6)}
+        />
+        <CalculatorInputResult
+          text="Deflection at x, ∆x:"
+          value={deflexaoX.toFixed(6)}
+        />
+        <CalculateButton
+          text="Retornar"
+          onPress={() => setIsClicked((isClicked) => !isClicked)}
+        />
+      </View>
+    );
+  };
+
+  const Calculation = () => {
+    return (
+      <View style={globalStyles.calculatorContent}>
+        <CalculatorInput
+          text="Comprimento da Viga, L:"
+          value={String(comprimentoViga)}
+          unit={"m"}
+          setValue={setComprimentoViga}
+        />
+        <CalculatorInput
+          text="Carga da Viga, P:"
+          value={String(cargaViga)}
+          unit={"kN/m"}
+          setValue={setCargaViga}
+        />
+        <CalculatorInput
+          text="Ponto de interesse, x:"
+          value={String(pontoInteresse)}
+          unit={"m"}
+          setValue={setPontoInteresse}
+        />
+        <CalculatorInput
+          text="Young Modulus, E:"
+          value={String(youngsModulus)}
+          unit={"MPa"}
+          setValue={setYoungModulus}
+        />
+        <CalculatorInput
+          text="Momento de Inercia, I:"
+          value={String(momentoInercia)}
+          unit={"mm4"}
+          setValue={setMomentoInercia}
+        />
+
+        <CalculateButton
+          text="Calcular"
+          onPress={() => setIsClicked((isClicked) => !isClicked)}
+        />
+      </View>
+    );
+  };
+
+  const myReturn = () => {
+    if (isClicked === false) {
+      return Calculation();
+    } else {
+      return Result();
+    }
+  };
+
+  return myReturn();
 };
 
 export const SimpleBeamWithPLAtAnyPoint = ({}) => {
