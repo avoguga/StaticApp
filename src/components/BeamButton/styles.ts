@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
       width: 150,
       height: 150,
       paddingVertical: 14,
-      paddingHorizontal: 10,
       margin: 5,
       borderRadius: 40,
       borderWidth: 2,
@@ -19,4 +18,8 @@ export const styles = StyleSheet.create({
       fontSize: 16,
       textAlign: 'center',
     },
+    image : {
+      width: 140,
+      height: 110,
+    }
   });
