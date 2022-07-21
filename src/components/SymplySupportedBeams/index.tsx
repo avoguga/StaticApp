@@ -793,29 +793,26 @@ export const SimpleBeamWithPLAtCentre = ({}) => {
 
 export const SimpleBeamWithPLAtAnyPoint = ({}) => {
   const [comprimentoViga, setComprimentoViga] = useState(1);
+  const [distanciaDaCarga, setDistanciaDaCarga] = useState(0.5);
   const [cargaViga, setCargaViga] = useState(1000);
-  const [pontoInteresse, setPontoInteresse] = useState(0.5);
+  const [pontoInteresse, setPontoInteresse] = useState(0.25);
   const [youngsModulus, setYoungModulus] = useState(200000);
   const [momentoInercia, setMomentoInercia] = useState(8333333);
   const [isClicked, setIsClicked] = useState(false);
 
-  const resultante = cargaViga / 3;
+  const resultante = (cargaViga * distanciaDaCarga) / comprimentoViga;
 
-  const resultante2 = 2 * (cargaViga / 3);
+  const resultante2 = (cargaViga * distanciaDaCarga) / comprimentoViga;
 
-  const tensaoX =
-    cargaViga / 3 - (cargaViga * pontoInteresse ** 2) / comprimentoViga ** 2;
-
-  const momentoMax = (2 * cargaViga * comprimentoViga) / 15.5884573;
+  const momentoMax =
+    (cargaViga * distanciaDaCarga * distanciaDaCarga) / comprimentoViga;
 
   const momentoX =
-    ((cargaViga * pontoInteresse) / (3 * comprimentoViga ** 2)) *
-    (comprimentoViga ** 2 - pontoInteresse ** 2);
+    (cargaViga * distanciaDaCarga * pontoInteresse) / comprimentoViga;
 
   const deflexaoMax =
-    0.01304 *
-    ((cargaViga * comprimentoViga ** 3) / (youngsModulus * momentoInercia)) *
-    1000000;
+    (cargaViga * comprimentoViga ** 2 * comprimentoViga ** 2) /
+    (3 * youngsModulus * momentoInercia * comprimentoViga) * 1000000000;
 
   // Constantes para o calculo de deflexao
 
@@ -872,9 +869,15 @@ export const SimpleBeamWithPLAtAnyPoint = ({}) => {
           setValue={setComprimentoViga}
         />
         <CalculatorInput
+          text="Distancia para carga, a:"
+          value={String(cargaViga)}
+          unit={"m"}
+          setValue={setCargaViga}
+        />
+        <CalculatorInput
           text="Carga da Viga, W:"
           value={String(cargaViga)}
-          unit={"kN/m"}
+          unit={"kN"}
           setValue={setCargaViga}
         />
         <CalculatorInput
