@@ -800,37 +800,48 @@ export const SimpleBeamWithPLAtAnyPoint = ({}) => {
   const [momentoInercia, setMomentoInercia] = useState(8333333);
   const [isClicked, setIsClicked] = useState(false);
 
-  const resultante = (cargaViga * distanciaDaCarga) / comprimentoViga;
+  const b = comprimentoViga - distanciaDaCarga;
+
+  const resultante = (cargaViga * b) / comprimentoViga;
 
   const resultante2 = (cargaViga * distanciaDaCarga) / comprimentoViga;
 
-  const momentoMax =
-    (cargaViga * distanciaDaCarga * distanciaDaCarga) / comprimentoViga;
+  const momentoMax = (cargaViga * distanciaDaCarga * b) / comprimentoViga;
 
-  const momentoX =
-    (cargaViga * distanciaDaCarga * pontoInteresse) / comprimentoViga;
+  const momentoX = (cargaViga * b * pontoInteresse) / comprimentoViga;
 
   // Constantes para o calculo de deflexao maxima
 
-  const pab = (cargaViga * distanciaDaCarga * distanciaDaCarga);
+  const pab = cargaViga * distanciaDaCarga * b;
 
-  const paba2b = pab * (distanciaDaCarga + 2 * distanciaDaCarga);
+  const a2b = (distanciaDaCarga + 2 * b);
 
-  const raiz = Math.sqrt(3*distanciaDaCarga * (distanciaDaCarga + 2 * distanciaDaCarga));
+  const primeiraParteRaiz = 3 * distanciaDaCarga;
+
+  const segundaParteRaiz = distanciaDaCarga + 2 * b;
+
+  const raiz = Math.sqrt(primeiraParteRaiz * segundaParteRaiz);
 
   const vinteseteEIL = 27 * youngsModulus * momentoInercia * comprimentoViga;
 
-  const deflexaoMax = paba2b * raiz / vinteseteEIL * 1000000000;
+  const primeiraParteDeflexao = pab * a2b * raiz;
 
-  // Constantes para o calculo de deflexao
+  const deflexaoMax = (primeiraParteDeflexao / vinteseteEIL )* 1000000000;
 
-  const a = cargaViga * pontoInteresse;
-  const b = 180 * youngsModulus * momentoInercia * comprimentoViga ** 2;
-  const c = 3 * pontoInteresse ** 4;
-  const d = 10 * comprimentoViga ** 2 * pontoInteresse ** 2;
-  const e = 7 * comprimentoViga ** 4;
+  const deflexaoNaCarga =
+    ((cargaViga * distanciaDaCarga ** 2 * b ** 2) /
+      (3 * youngsModulus * momentoInercia * comprimentoViga)) *
+    1000000000;
 
-  const deflexaoX = (a / b) * (c - d + e) * 1000000;
+  // Constantes para o calculo de deflexao na carga
+
+  const pbx = cargaViga * b * pontoInteresse;
+
+  const seiseil = 6 * youngsModulus * momentoInercia * comprimentoViga;
+
+  const lbx = comprimentoViga ** 2 - b ** 2 - pontoInteresse ** 2;
+
+  const deflexaoX = (pbx / seiseil) * lbx * 1000000000;
 
   const Result = () => {
     return (
@@ -854,7 +865,7 @@ export const SimpleBeamWithPLAtAnyPoint = ({}) => {
         />
         <CalculatorInputResult
           text="Deflection at Load, ∆a:"
-          value={deflexaoX.toFixed(6)}
+          value={deflexaoNaCarga.toFixed(6)}
         />
         <CalculatorInputResult
           text="Deflection at x, ∆x:"
