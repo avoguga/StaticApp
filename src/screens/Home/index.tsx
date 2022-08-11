@@ -3,6 +3,7 @@ import {
   View,
   ScrollView,
   useWindowDimensions,
+  Text
 } from "react-native";
 import { globalStyles } from "../../styles/global";
 import SympleSupportedBeams from "../../components/SymplySupportedBeams";
@@ -34,7 +35,8 @@ const Home = ({}) => {
   return (
     <View style={[{ minHeight: Math.round(windowHeight) }]}>
       <View style={globalStyles.container}>
-        <Picker
+        <Text style={globalStyles.text}>Vigas Biapoiadas</Text>
+        {/* <Picker
           style={globalStyles.picker}
           selectedValue={selectedBeamsType}
           onValueChange={(itemValue, itemIndex) =>
@@ -51,10 +53,10 @@ const Home = ({}) => {
               />
             );
           })}
-        </Picker>
-
+        </Picker> */}
         <ScrollView>
-          <View>{ScreenDisplay()}</View>
+          {/* <View>{ScreenDisplay()}</View> */}
+          <SympleSupportedBeams />
         </ScrollView>
       </View>
     </View>

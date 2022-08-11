@@ -61,5 +61,13 @@ export const globalStyles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     textAlign: "center"
+  },
+  text: {
+    fontSize: 20,
+    color: "#fff",
+    fontWeight: "bold", 
+    textAlign: "center",
+    marginTop: 10,
+    marginBottom: 10,
   }
 });
