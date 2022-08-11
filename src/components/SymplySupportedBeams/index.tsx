@@ -31,7 +31,7 @@ const SympleSupportedBeams: React.FC<IProps> = ({}) => {
       />
       <Button
         onPress={() => navigation.navigate("SimpleBeamWithPDULAtOneEnd")}
-        image={require("../../img/05.jpg")}
+        image={require("../../img/simplebeamwithudl.png")}
       />
       <Button
         onPress={() => navigation.navigate("SimpleBeamWithPLAtCentre")}
@@ -810,9 +810,17 @@ export const SimpleBeamWithPLAtAnyPoint = ({}) => {
   const momentoX =
     (cargaViga * distanciaDaCarga * pontoInteresse) / comprimentoViga;
 
-  const deflexaoMax =
-    (cargaViga * comprimentoViga ** 2 * comprimentoViga ** 2) /
-    (3 * youngsModulus * momentoInercia * comprimentoViga) * 1000000000;
+  // Constantes para o calculo de deflexao maxima
+
+  const pab = (cargaViga * distanciaDaCarga * distanciaDaCarga);
+
+  const paba2b = pab * (distanciaDaCarga + 2 * distanciaDaCarga);
+
+  const raiz = Math.sqrt(3*distanciaDaCarga * (distanciaDaCarga + 2 * distanciaDaCarga));
+
+  const vinteseteEIL = 27 * youngsModulus * momentoInercia * comprimentoViga;
+
+  const deflexaoMax = paba2b * raiz / vinteseteEIL * 1000000000;
 
   // Constantes para o calculo de deflexao
 
@@ -870,9 +878,9 @@ export const SimpleBeamWithPLAtAnyPoint = ({}) => {
         />
         <CalculatorInput
           text="Distancia para carga, a:"
-          value={String(cargaViga)}
+          value={String(distanciaDaCarga)}
           unit={"m"}
-          setValue={setCargaViga}
+          setValue={setDistanciaDaCarga}
         />
         <CalculatorInput
           text="Carga da Viga, W:"
