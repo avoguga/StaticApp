@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   ScrollView,
   useWindowDimensions,
-  Text
+  Text,
+  BackHandler
 } from "react-native";
 import { globalStyles } from "../../styles/global";
 import SympleSupportedBeams from "../../components/SymplySupportedBeams";
@@ -12,6 +13,13 @@ import { Picker } from "@react-native-picker/picker";
 import BeamsWithOverhang from "../../components/BeamswithOverhang";
 
 const Home = ({}) => {
+
+  // useEffect(() => {
+  //   BackHandler.addEventListener('hardwareBackPress', () => {
+  //     return true
+  //   });
+  // }, []);
+
   const [beamsType, setBeamsType] = useState([
     "Vigas Biapoiadas",
     "Vigas Engasgadas em Balanço",

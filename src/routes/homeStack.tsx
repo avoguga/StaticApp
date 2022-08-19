@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../screens/Home";
+import { Splash } from "../screens/Splash";
+
 import {
   SimpleBeamWithUDL,
   SimpleBeamWithUIL,
@@ -20,9 +22,17 @@ export default function HomeStackScreen() {
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen
-        name="Beam Design Formulas"
+        name="Splash"
+        component={Splash}
+        options={{
+          headerShown: false
+        }}
+      />
+      <HomeStack.Screen
+        name="Home"
         component={Home}
         options={{
+          headerShown: false,
           headerStyle: {
             backgroundColor: "#303030",
           },
@@ -33,43 +43,43 @@ export default function HomeStackScreen() {
         }}
       />
       <HomeStack.Screen
-        name="SimpleBeamWithUDL"
+        name="Carga Distribuída"
         component={SimpleBeamWithUDL}
       />
       <HomeStack.Screen
-        name="SimpleBeamWithUIL"
+        name="Carga Triangular Distribuída"
         component={SimpleBeamWithUIL}
       />
       <HomeStack.Screen
-        name="SimpleBeamWithCentralUIL"
+        name="Carga Triangular até o Centro"
         component={SimpleBeamWithCentralUIL}
       />
       <HomeStack.Screen
-        name="SimpleBeamWithPDUL"
+        name="Carga Distribuída em qualquer Ponto"
         component={SimpleBeamWithPDUL}
       />
       <HomeStack.Screen
-        name="SimpleBeamWithPDULAtOneEnd"
+        name="Carga Distribuída em uma extremidade"
         component={SimpleBeamWithPDULAtOneEnd}
       />
       <HomeStack.Screen
-        name="SimpleBeamWithPLAtAnyPoint"
+        name="Carga Concentrada em qualquer Ponto"
         component={SimpleBeamWithPLAtAnyPoint}
       />
       <HomeStack.Screen
-        name="SimpleBeamWithPLAtCentre"
+        name="Carga Concentrada no Centro"
         component={SimpleBeamWithPLAtCentre}
       />
       <HomeStack.Screen
-        name="SimpleBeamWithPLSEquallySpaced"
+        name="Cargas Iguais em Pontos Igualmente Espaçados"
         component={SimpleBeamWithPLSEquallySpaced}
       />
       <HomeStack.Screen
-        name="BeamWithPLSUnequallySpaced"
+        name="Cargas Iguais em Pontos Dinstintos"
         component={BeamWithPLSUnequallySpaced}
       />
       <HomeStack.Screen
-        name="BeamWithUPLSUnequallySpaced"
+        name="Cargas Desiguais em Pontos Dinstintos"
         component={BeamWithUPLSUnequallySpaced}
       />
     </HomeStack.Navigator>

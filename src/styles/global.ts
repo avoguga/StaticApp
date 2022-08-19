@@ -67,7 +67,8 @@ export const globalStyles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold", 
     textAlign: "center",
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 50,
+    marginBottom: 20,
+    marginRight: 150,
   }
 });
