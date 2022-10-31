@@ -1,5 +1,5 @@
 # StaticApp
-Aplicação realiz em React Native usando TypeScript.
+Aplicação construída com React Native usando TypeScript.
 
 ![Exemplo - Logo](https://firebasestorage.googleapis.com/v0/b/meus-testes-73c8d.appspot.com/o/staticapp.png?alt=media&token=d3ec797c-9943-4958-8848-1bb7b377c5e3)
 
