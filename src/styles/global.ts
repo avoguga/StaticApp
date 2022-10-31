@@ -6,6 +6,7 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: "#303030",
     alignItems: "center",
     justifyContent: "center",
+    height: Dimensions.get("window").height,
   },
   simpleContainer: {
     backgroundColor: "#303030",
